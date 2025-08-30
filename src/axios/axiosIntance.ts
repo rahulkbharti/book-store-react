@@ -3,7 +3,7 @@ import { store } from "../store/store";
 import { login, logout, type LoginData } from "../store/slice/authSlice";
 
 // --- Configuration ---
-const AUTH_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const AUTH_URL = "https://book-store-fastapi.onrender.com/";
 
 const axiosInstance = axios.create({
   baseURL: AUTH_URL,
