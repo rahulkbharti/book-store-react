@@ -24,7 +24,7 @@ const BookStoreApp: React.FC = () => {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <ThemeProvider theme={theme}>
-          <BrowserRouter basename="book-store-react">
+          <BrowserRouter basename="/book-store-react">
             <Routes>
               <Route
                 path="/"
