@@ -31,8 +31,9 @@ import {
   Close as CloseIcon,
 } from "@mui/icons-material";
 import BookAPI from "../axios/bookAPI";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/slice/authSlice";
+import { useNavigate } from "react-router-dom";
 
 type Book = {
   id: number;
@@ -60,7 +61,7 @@ const BookStoreManagement: React.FC = () => {
   const [books, setBooks] = useState<Book[]>([]);
   const [pagination, setPagination] = useState<PaginationData>({
     page: 1,
-    page_size: 8, // Increased page size for better UX
+    page_size: 2, // Increased page size for better UX
     total: 0,
     total_pages: 0,
     has_next: false,
@@ -82,7 +83,12 @@ const BookStoreManagement: React.FC = () => {
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const theme = useTheme();
+  const isAuthenticated = useSelector(
+    (state: any) => state.auth.isAuthenticated
+  );
+  // console.log("IsAuthenticated", isAuthenticated);
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const getBooks = useCallback(
@@ -131,7 +137,11 @@ const BookStoreManagement: React.FC = () => {
     [getBooks, searchTerm]
   );
 
-  const handleAddClick = useCallback(() => {
+  const handleAddClick = () => {
+    if (!isAuthenticated) {
+      alert("You are not Authorized to Add Book, Please Login");
+      return;
+    }
     setEditingBook(null);
     setFormData({
       title: "",
@@ -141,9 +151,13 @@ const BookStoreManagement: React.FC = () => {
     });
     setFormErrors({});
     setDialogOpen(true);
-  }, []);
+  };
 
-  const handleEditClick = useCallback((book: Book) => {
+  const handleEditClick = (book: Book) => {
+    if (!isAuthenticated) {
+      alert("You are not Authorized to Edit Book, Please Login");
+      return;
+    }
     setEditingBook(book);
     setFormData({
       title: book.title,
@@ -153,12 +167,16 @@ const BookStoreManagement: React.FC = () => {
     });
     setFormErrors({});
     setDialogOpen(true);
-  }, []);
+  };
 
-  const handleDeleteClick = useCallback((id: number) => {
+  const handleDeleteClick = (id: number) => {
+    if (!isAuthenticated) {
+      alert("You are not Authorized to Delete Book, Please Login");
+      return;
+    }
     setBookToDelete(id);
     setDeleteConfirmOpen(true);
-  }, []);
+  };
 
   const handleDialogClose = useCallback(() => {
     setDialogOpen(false);
@@ -269,7 +287,9 @@ const BookStoreManagement: React.FC = () => {
       handleFormSubmit();
     }
   };
-
+  const handleLogin = () => {
+    navigate("/");
+  };
   const handleLogout = () => {
     dispatch(logout());
   };
@@ -291,9 +311,15 @@ const BookStoreManagement: React.FC = () => {
           Book Management
         </Typography>
         <Stack direction="row" spacing={2}>
-          <Button variant="contained" color="error" onClick={handleLogout}>
-            Logout
-          </Button>
+          {isAuthenticated ? (
+            <Button variant="contained" color="error" onClick={handleLogout}>
+              Logout
+            </Button>
+          ) : (
+            <Button variant="contained" color="info" onClick={handleLogin}>
+              Login
+            </Button>
+          )}
         </Stack>
       </Box>
 

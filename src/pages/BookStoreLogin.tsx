@@ -12,7 +12,7 @@ import {
 import { Book as BookIcon } from "@mui/icons-material";
 
 import AuthAPI from "../axios/authAPI";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../store/slice/authSlice";
 import { useDispatch } from "react-redux";
 
@@ -175,6 +175,9 @@ const BookStoreLogin: React.FC = () => {
                 Change Email
               </Button>
             )}
+            <Button component={Link} to="/books" variant="text" sx={{ mt: 1 }}>
+              Go to Book Store
+            </Button>
           </Box>
         )}
       </Paper>

@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { persistor, store } from "./store/store";
 import { PersistGate } from "redux-persist/integration/react";
-import ProtectedRoute from "./routes/ProtectedRoute";
+// import ProtectedRoute from "./routes/ProtectedRoute";
 import PublicRoute from "./routes/PublicRoute";
 import BookStoreLogin from "./pages/BookStoreLogin";
 import BookStoreManagement from "./pages/BookStoreManagement";
@@ -34,12 +34,7 @@ const BookStoreApp: React.FC = () => {
                   </PublicRoute>
                 }
               ></Route>
-              <Route
-                path="/books"
-                element={
-                  <ProtectedRoute>{<BookStoreManagement />}</ProtectedRoute>
-                }
-              ></Route>
+              <Route path="/books" element={<BookStoreManagement />}></Route>
             </Routes>
           </BrowserRouter>
         </ThemeProvider>
