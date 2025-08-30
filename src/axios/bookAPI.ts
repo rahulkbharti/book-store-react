@@ -7,14 +7,22 @@ type NewBook = {
   published_year: number;
 };
 
+type Params = {
+  page: number;
+  limit: number;
+  author?: string;
+};
+
 const BookAPI = {
-  getBooks: async (page = 1, limit = 2, author = "") => {
+  getBooks: async (page = 1, limit = 3, author = "") => {
     try {
-      const params = {
+      const params: Params = {
         page: page,
         limit: limit,
-        author: author,
       };
+      if (author) {
+        params.author = author;
+      }
       const response = await axiosInstance.get("/books", {
         params,
       });

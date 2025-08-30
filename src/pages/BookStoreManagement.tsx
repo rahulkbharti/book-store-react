@@ -19,9 +19,9 @@ import {
   useTheme,
   useMediaQuery,
   Pagination,
-  CircularProgress,
   InputAdornment,
   Stack,
+  LinearProgress,
 } from "@mui/material";
 import {
   Add as AddIcon,
@@ -368,8 +368,8 @@ const BookStoreManagement: React.FC = () => {
 
       {/* Loading State */}
       {loading && (
-        <Box sx={{ display: "flex", justifyContent: "center", my: 4 }}>
-          <CircularProgress />
+        <Box sx={{ my: 4 }}>
+          <LinearProgress />
         </Box>
       )}
 
@@ -387,7 +387,7 @@ const BookStoreManagement: React.FC = () => {
         <>
           <Grid container spacing={3}>
             {books.map((book) => (
-              <Grid size={{ xs: 12, sm: 6, md: 4 }} key={book.id}>
+              <Grid size={{ xs: 12, sm: 4, md: 3 }} key={book.id}>
                 <Card
                   sx={{
                     height: "100%",
