@@ -334,7 +334,7 @@ const BookStoreManagement: React.FC = () => {
       <Box sx={{ mb: 3, display: "flex", gap: 2, flexWrap: "wrap" }}>
         <TextField
           size="small"
-          label="Search books by title or author"
+          label="Search books by author name"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleSearch()}
